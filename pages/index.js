@@ -1,25 +1,35 @@
+import Link from 'next/link'
 import Layout from '../component/layout'
+import slug from 'slug'
+import { Box, Flex, Square, Center, Text } from '@chakra-ui/react'
 
 function HomePage({ characters }) {
   return (
     <Layout>
-      <h1>Welcome to Next.js!!</h1>
-
+      <h1>Rick and Morty</h1>
+      <Flex color="white">
+        <Center w="100px" bg="green.500">
+          <Text>Box 1</Text>
+        </Center>
+        <Square bg="blue.500" size="150px">
+          <Text>Box 2</Text>
+        </Square>
+        <Box flex="1" bg="tomato">
+          <Text>Box 3</Text>
+        </Box>
+      </Flex>
       <ul>
         {characters.results.map((character) => (
-          <li>{character.name}</li>
+          <li key={character.id}>
+            <Link
+              href="/characters/[slug]"
+              as={`/characters/${slug(character.name)}-${character.id}`}
+            >
+              <a>{character.name}</a>
+            </Link>
+          </li>
         ))}
       </ul>
-      <style jsx>{`
-        h1 {
-          color: blue;
-        }
-        @media (max-width: 600px) {
-          div {
-            background: blue;
-          }
-        }
-      `}</style>
     </Layout>
   )
 }
