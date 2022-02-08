@@ -1,23 +1,14 @@
 import Link from 'next/link'
 import Layout from '../component/layout'
 import slug from 'slug'
-import { Box, Flex, Square, Center, Text } from '@chakra-ui/react'
 
 function HomePage({ characters }) {
   return (
     <Layout>
       <h1>Rick and Morty</h1>
-      <Flex color="white">
-        <Center w="100px" bg="green.500">
-          <Text>Box 1</Text>
-        </Center>
-        <Square bg="blue.500" size="150px">
-          <Text>Box 2</Text>
-        </Square>
-        <Box flex="1" bg="tomato">
-          <Text>Box 3</Text>
-        </Box>
-      </Flex>
+
+      <h1 className="text-3xl font-bold underline bg-blue-100">Hello world!</h1>
+
       <ul>
         {characters.results.map((character) => (
           <li key={character.id}>
