@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 function Navigation() {
   return (
-    <nav>
+    <nav className="main-container space-x-4">
       <Link href="/">
         <a>Ana sayfa</a>
       </Link>
