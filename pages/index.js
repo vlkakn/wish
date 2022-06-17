@@ -1,12 +1,34 @@
-import Layout from '../components/layout'
+import Layout from '@/components/layout'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useState } from 'react'
 
 function HomePage() {
-  const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0()
+  const {
+    loginWithRedirect,
+    isAuthenticated,
+    user,
+    logout,
+    getAccessTokenSilently
+  } = useAuth0()
+  const [text, textSet] = useState('')
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault(e)
-    console.log('tetiklendi')
+
+    const userToken = await getAccessTokenSilently()
+    // api'ye göndericez
+    // token, text
+
+    const response = await fetch('/api/wish', {
+      method: 'POST',
+      body: JSON.stringify({ text, userToken }),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+
+    const data = await response.json()
+    console.log(data)
   }
 
   return (
@@ -17,6 +39,7 @@ function HomePage() {
         <textarea
           rows="3"
           className="border border-gray-300 rounded w-full block px-2 py-1"
+          onChange={(e) => textSet(e.target.value)}
         />
 
         <div className="mt-4">
