@@ -1,6 +1,7 @@
 import Layout from '@/components/layout'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react'
+import Auth from '@/components/Auth'
 
 function HomePage() {
   const {
@@ -67,6 +68,7 @@ function HomePage() {
             </button>
           )}
         </div>
+        <Auth />
       </form>
     </Layout>
   )
