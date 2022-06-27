@@ -1,24 +1,12 @@
 import Layout from '@/components/layout'
-import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react'
 import Auth from '@/components/Auth'
 
 function HomePage() {
-  const {
-    loginWithRedirect,
-    isAuthenticated,
-    user,
-    logout,
-    getAccessTokenSilently
-  } = useAuth0()
   const [text, textSet] = useState('')
 
   const onSubmit = async (e) => {
     e.preventDefault(e)
-
-    const userToken = await getAccessTokenSilently()
-    // api'ye göndericez
-    // token, text
 
     const response = await fetch('/api/wish', {
       method: 'POST',
@@ -29,7 +17,6 @@ function HomePage() {
     })
 
     const data = await response.json()
-    console.log(data)
   }
 
   return (
@@ -44,32 +31,17 @@ function HomePage() {
         />
 
         <div className="mt-4">
-          {isAuthenticated ? (
-            <div className="flex items-center space-x-2">
-              <button className="bg-blue-600 text-white px-2 py-1 rounded">
-                Gönder
-              </button>
-              <img src={user.picture} width={30} className="rounded-full" />
-              <span>{user.name}</span>
-              <button
-                onClick={() =>
-                  logout({ returnTo: process.env.NEXT_PUBLIC_URL })
-                }
-              >
-                (Log Out)
-              </button>
-            </div>
-          ) : (
+          <div className="flex items-center space-x-2">
             <button
+              type="button"
               className="bg-blue-600 text-white px-2 py-1 rounded"
-              onClick={() => loginWithRedirect()}
             >
-              Log In
+              Gönder
             </button>
-          )}
+          </div>
         </div>
-        <Auth />
       </form>
+      <Auth />
     </Layout>
   )
 }
